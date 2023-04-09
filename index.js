@@ -25,7 +25,16 @@ app.post('/', async(req, res)=>{
     const newdata = await user.save();
     res.status(201).json(newdata);
 })
+app.post('/login', async(req, res)=>{
+    const {  email, password } = req.body
+    const user = await User.findOne({email})
 
+    if (user) {
+        res.statusCode(200).json(user)
+    }else{
+        res.statusCode(404).json({message :"not found"})
+    }
+})
 app.put('/:id', async(req, res)=>{
 const {id}=req.params
 const user = await User.findByIdAndUpdate(id, req.body)
