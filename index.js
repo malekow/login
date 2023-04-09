@@ -1,14 +1,14 @@
 
-import Express from 'express';
+import express from 'express';
 import mongoose from 'mongoose'
 import User from './modules/usermodules.js';
 import dotenv from 'dotenv';
 
 dotenv.config()
 
-const app = Express();
+const app = express();
 const port = 3000;
-app.use(Express.json())
+app.use(express.json())
 
 app.get('/', async (req, res)=>{
   const users = await User.find()
@@ -30,11 +30,11 @@ app.post('/login', async(req, res)=>{
     const user = await User.findOne({email})
 
     if (user) {
-        res.statusCode(200).json(user)
+        res.status(201).json(user)
     }else{
-        res.statusCode(404).json({message :"not found"})
+        res.status(404).json({message :"not found"})
     }
-})
+}) 
 app.put('/:id', async(req, res)=>{
 const {id}=req.params
 const user = await User.findByIdAndUpdate(id, req.body)
